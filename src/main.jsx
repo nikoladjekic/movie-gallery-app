@@ -1,9 +1,10 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import MovieGallery from './components/MovieGallery';
+import './index.css';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <h1>Movie gallery app</h1>
+    <MovieGallery />
   </StrictMode>,
 )
