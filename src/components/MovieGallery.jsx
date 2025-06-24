@@ -1,21 +1,30 @@
 import useMovies from '../hooks/useMovies';
 import moviesData from '../assets/movies.json';
+import styled from 'styled-components';
+import MovieCard from './MovieCard';
 
 const MovieGallery = () => {
 	const movies = useMovies(moviesData);
 
 	return (
-		<ul>
+		<GalleryContainer>
 			{movies.map((movie) => (
-				<li key={movie.id}>
-					<h2>{movie.title}</h2>
-					<p>IMDb Rating: {movie.imdbRating}</p>
-					<p>Release Date: {movie.releaseDate}</p>
-					<img src={movie.posterUrl} alt={movie.title} />
-				</li>
+				<MovieCard key={movie.id} movie={movie} />
 			))}
-		</ul>
+		</GalleryContainer>
 	);
 };
 
 export default MovieGallery;
+
+const GalleryContainer = styled.div`
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+	gap: 1rem;
+	outline: none;
+	padding: 1rem;
+	box-sizing: border-box;
+	max-width: 1200px;
+	margin: 0 auto;
+	background: transparent;
+`;

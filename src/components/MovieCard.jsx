@@ -1,0 +1,59 @@
+import styled from 'styled-components';
+
+const MovieCard = ({ movie }) => {
+	return (
+		<StyledMovieCard>
+			<MoviePoster src={movie.posterUrl} alt={`${movie.title} poster`} />
+			<CardContent>
+				<MovieTitle>{movie.title}</MovieTitle>
+				<MovieDate>{movie.releaseDate}</MovieDate>
+			</CardContent>
+		</StyledMovieCard>
+	);
+};
+
+export default MovieCard;
+
+const StyledMovieCard = styled.div`
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	background: #fff;
+	border-radius: 5px;
+	overflow: hidden;
+	box-shadow: 0 2px 8px rgba(30, 30, 30, 0.04);
+	min-height: 250px;
+	transition: box-shadow 0.2s, transform 0.2s linear;
+	outline: none;
+`;
+
+const MoviePoster = styled.img`
+	width: 100%;
+	height: 220px;
+	object-fit: cover;
+	display: block;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	background: #b1b1b1;
+`;
+
+const CardContent = styled.div`
+	background: #fff;
+	padding: 1em;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	flex-grow: 1;
+	min-height: 30px;
+	position: relative;
+`;
+
+const MovieTitle = styled.div`
+	font-weight: bold;
+	font-size: 1em;
+	margin-bottom: 0.2em;
+`;
+
+const MovieDate = styled.div`
+	font-size: 0.9em;
+`;
