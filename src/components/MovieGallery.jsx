@@ -59,6 +59,7 @@ const MovieGallery = () => {
 					active={focusedIndex === index}
 					tabIndex={focusedIndex === index ? 0 : -1}
 					onFocus={() => setFocusedIndex(index)}
+					onMouseEnter={() => setFocusedIndex(index)}
 					cardRef={(el) => (itemRefs.current[index] = el)}
 				/>
 			))}

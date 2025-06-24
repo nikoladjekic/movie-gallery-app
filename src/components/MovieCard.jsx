@@ -1,12 +1,20 @@
 import styled, { css } from 'styled-components';
 
-const MovieCard = ({ movie, active, tabIndex, onFocus, cardRef }) => {
+const MovieCard = ({
+	movie,
+	active,
+	tabIndex,
+	onFocus,
+	onMouseEnter,
+	cardRef,
+}) => {
 	return (
 		<StyledMovieCard
 			ref={cardRef}
 			tabIndex={tabIndex}
 			active={active}
 			onFocus={onFocus}
+			onMouseEnter={onMouseEnter}
 		>
 			<MoviePoster src={movie.posterUrl} alt={`${movie.title} poster`} />
 			<CardContent active={active}>
