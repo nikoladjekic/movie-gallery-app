@@ -5,7 +5,7 @@ import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
 	body {
-		background: #090909;
+		background: #cecece;
 		font-family: 'Trebouchet', sans-serif; 
 	}
 `;
