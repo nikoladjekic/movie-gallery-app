@@ -2,9 +2,9 @@ import useMovies from '../hooks/useMovies';
 import moviesData from '../assets/movies.json';
 
 const MovieGallery = () => {
-    const movies = useMovies(moviesData);
+	const movies = useMovies(moviesData);
 
-    return (
+	return (
 		<ul>
 			{movies.map((movie) => (
 				<li key={movie.id}>
@@ -15,7 +15,7 @@ const MovieGallery = () => {
 				</li>
 			))}
 		</ul>
-    );
+	);
 };
 
 export default MovieGallery;
