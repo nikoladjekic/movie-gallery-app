@@ -42,8 +42,8 @@ const StyledMovieCard = styled.div`
 	${({ active }) =>
 		active &&
 		css`
-			box-shadow: 0 0 16px #489aff;
-			transform: scale(1.06);
+			box-shadow: 0 0 16px #2e82ff;
+			transform: scale(1.08);
 			z-index: 2;
 		`}
 `;
@@ -80,6 +80,6 @@ const MovieTitle = styled.div`
 
 const MovieDate = styled.div`
 	font-size: 0.8em;
-	color: ${({ active }) => (active ? '#d1d1d1' : '#909090')};
+	color: ${({ active }) => (active ? '#d1d1d1a1' : '#a3a3a3')};
 	transition: color 0.2s;
 `;
