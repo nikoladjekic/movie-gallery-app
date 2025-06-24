@@ -12,14 +12,14 @@ const MovieCard = ({
 		<StyledMovieCard
 			ref={cardRef}
 			tabIndex={tabIndex}
-			active={active}
+			$active={active}
 			onFocus={onFocus}
 			onMouseEnter={onMouseEnter}
 		>
 			<MoviePoster src={movie.posterUrl} alt={`${movie.title} poster`} />
-			<CardContent active={active}>
-				<MovieTitle active={active}>{movie.title}</MovieTitle>
-				<MovieDate active={active}>{movie.releaseDate}</MovieDate>
+			<CardContent $active={active}>
+				<MovieTitle $active={active}>{movie.title}</MovieTitle>
+				<MovieDate $active={active}>{movie.releaseDate}</MovieDate>
 			</CardContent>
 		</StyledMovieCard>
 	);
@@ -39,8 +39,8 @@ const StyledMovieCard = styled.div`
 	transition: box-shadow 0.2s, transform 0.2s linear;
 	outline: none;
 
-	${({ active }) =>
-		active &&
+	${({ $active }) =>
+		$active &&
 		css`
 			box-shadow: 0 0 16px #2e82ff;
 			transform: scale(1.08);
@@ -59,7 +59,7 @@ const MoviePoster = styled.img`
 `;
 
 const CardContent = styled.div`
-	background: ${({ active }) => (active ? '#2e82ff' : '#fff')};
+	background: ${({ $active }) => ($active ? '#2e82ff' : '#fff')};
 	padding: 1em;
 	display: flex;
 	flex-direction: column;
@@ -74,12 +74,12 @@ const MovieTitle = styled.div`
 	font-weight: bold;
 	font-size: 1em;
 	margin-bottom: 0.2em;
-	color: ${({ active }) => (active ? '#fff' : '#525252')};
+	color: ${({ $active }) => ($active ? '#fff' : '#525252')};
 	transition: color 0.2s;
 `;
 
 const MovieDate = styled.div`
 	font-size: 0.8em;
-	color: ${({ active }) => (active ? '#d1d1d1a1' : '#a3a3a3')};
+	color: ${({ $active }) => ($active ? '#d1d1d1a1' : '#a3a3a3')};
 	transition: color 0.2s;
 `;
