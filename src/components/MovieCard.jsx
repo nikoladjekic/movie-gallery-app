@@ -20,6 +20,9 @@ const MovieCard = ({
 			<CardContent $active={active}>
 				<MovieTitle $active={active}>{movie.title}</MovieTitle>
 				<MovieDate $active={active}>{movie.releaseDate}</MovieDate>
+				<StarButton type='button' tabIndex={-1}>
+					<StarIcon>{active ? '★' : '☆'}</StarIcon>
+				</StarButton>
 			</CardContent>
 		</StyledMovieCard>
 	);
@@ -82,4 +85,24 @@ const MovieDate = styled.div`
 	font-size: 0.8em;
 	color: ${({ $active }) => ($active ? '#d1d1d1a1' : '#a3a3a3')};
 	transition: color 0.2s;
+`;
+
+const StarButton = styled.button`
+	position: absolute;
+	bottom: 0.7em;
+	right: 0.7em;
+	background: transparent;
+	border: none;
+	padding: 0;
+	z-index: 3;
+	outline: none;
+	font-size: 1.1em;
+	line-height: 1;
+	cursor: pointer;
+`;
+
+const StarIcon = styled.span`
+	color: #111;
+	font-size: 1.1em;
+	pointer-events: none;
 `;
