@@ -2,14 +2,65 @@ import useMovies from '../hooks/useMovies';
 import moviesData from '../assets/movies.json';
 import styled from 'styled-components';
 import MovieCard from './MovieCard';
+import { useEffect, useRef, useState } from 'react';
 
 const MovieGallery = () => {
+	const [focusedIndex, setFocusedIndex] = useState(0);
+	const containerRef = useRef();
+	const itemRefs = useRef([]);
 	const movies = useMovies(moviesData);
+	const columns = 6;
+
+	useEffect(() => {
+		if (itemRefs.current[focusedIndex]) {
+			itemRefs.current[focusedIndex].focus();
+		}
+	}, [focusedIndex]);
+
+	const handleKeyDown = (e) => {
+		let newIndex = focusedIndex;
+
+		switch (e.key) {
+			case 'ArrowRight':
+				if (focusedIndex + 1 < movies.length)
+					newIndex = focusedIndex + 1;
+				break;
+			case 'ArrowLeft':
+				if (focusedIndex - 1 >= 0) newIndex = focusedIndex - 1;
+				break;
+			case 'ArrowDown':
+				if (focusedIndex + columns < movies.length)
+					newIndex = focusedIndex + columns;
+				break;
+			case 'ArrowUp':
+				if (focusedIndex - columns >= 0)
+					newIndex = focusedIndex - columns;
+				break;
+			default:
+				return;
+		}
+
+		if (newIndex !== focusedIndex) {
+			setFocusedIndex(newIndex);
+			e.preventDefault();
+		}
+	};
 
 	return (
-		<GalleryContainer>
-			{movies.map((movie) => (
-				<MovieCard key={movie.id} movie={movie} />
+		<GalleryContainer
+			ref={containerRef}
+			tabIndex={0}
+			onKeyDown={handleKeyDown}
+		>
+			{movies.map((movie, index) => (
+				<MovieCard
+					key={movie.id}
+					movie={movie}
+					active={focusedIndex === index}
+					tabIndex={focusedIndex === index ? 0 : -1}
+					onFocus={() => setFocusedIndex(index)}
+					cardRef={(el) => (itemRefs.current[index] = el)}
+				/>
 			))}
 		</GalleryContainer>
 	);

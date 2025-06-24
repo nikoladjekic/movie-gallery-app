@@ -1,12 +1,17 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-const MovieCard = ({ movie }) => {
+const MovieCard = ({ movie, active, tabIndex, onFocus, cardRef }) => {
 	return (
-		<StyledMovieCard>
+		<StyledMovieCard
+			ref={cardRef}
+			tabIndex={tabIndex}
+			active={active}
+			onFocus={onFocus}
+		>
 			<MoviePoster src={movie.posterUrl} alt={`${movie.title} poster`} />
-			<CardContent>
-				<MovieTitle>{movie.title}</MovieTitle>
-				<MovieDate>{movie.releaseDate}</MovieDate>
+			<CardContent active={active}>
+				<MovieTitle active={active}>{movie.title}</MovieTitle>
+				<MovieDate active={active}>{movie.releaseDate}</MovieDate>
 			</CardContent>
 		</StyledMovieCard>
 	);
@@ -25,6 +30,14 @@ const StyledMovieCard = styled.div`
 	min-height: 250px;
 	transition: box-shadow 0.2s, transform 0.2s linear;
 	outline: none;
+
+	${({ active }) =>
+		active &&
+		css`
+			box-shadow: 0 0 16px #489aff;
+			transform: scale(1.06);
+			z-index: 2;
+		`}
 `;
 
 const MoviePoster = styled.img`
@@ -38,7 +51,7 @@ const MoviePoster = styled.img`
 `;
 
 const CardContent = styled.div`
-	background: #fff;
+	background: ${({ active }) => (active ? '#2e82ff' : '#fff')};
 	padding: 1em;
 	display: flex;
 	flex-direction: column;
@@ -46,14 +59,19 @@ const CardContent = styled.div`
 	flex-grow: 1;
 	min-height: 30px;
 	position: relative;
+	transition: background 0.2s;
 `;
 
 const MovieTitle = styled.div`
 	font-weight: bold;
 	font-size: 1em;
 	margin-bottom: 0.2em;
+	color: ${({ active }) => (active ? '#fff' : '#525252')};
+	transition: color 0.2s;
 `;
 
 const MovieDate = styled.div`
-	font-size: 0.9em;
+	font-size: 0.8em;
+	color: ${({ active }) => (active ? '#d1d1d1' : '#909090')};
+	transition: color 0.2s;
 `;
