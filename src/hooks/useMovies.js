@@ -7,7 +7,7 @@ const getImdbRating = (ratings) => {
 	return ratings.find((rating) => rating.id === 'imdb')?.rating || 0;
 };
 
-const useSortedMovies = (movies) => {
+const useMovies = (movies) => {
 	const sortedMovies = useMemo(() => {
 		if (!movies || movies.length === 0) return [];
 
@@ -31,4 +31,4 @@ const useSortedMovies = (movies) => {
 	return sortedMovies;
 };
 
-export default useSortedMovies;
+export default useMovies;
