@@ -92,7 +92,9 @@ const MovieGallery = () => {
 			</GalleryContainer>
 
 			{loadedMovies.length < totalMovies && (
-				<button onClick={loadMoreMovies}>Load More</button>
+				<LoadMoreButton type='button' onClick={loadMoreMovies}>
+					Load More Movies
+				</LoadMoreButton>
 			)}
 		</>
 	);
@@ -110,4 +112,20 @@ const GalleryContainer = styled.div`
 	max-width: 1200px;
 	margin: 0 auto;
 	background: transparent;
+`;
+
+const LoadMoreButton = styled.button`
+	cursor: pointer;
+	display: block;
+	margin: 30px auto 60px;
+	padding: 15px 25px;
+	background-color: #2e82ff;
+	color: #eeeeee;
+	border: none;
+	border-radius: 5px;
+	font-size: 1.1em;
+	transition: background-color 0.2s;
+	&:hover {
+		background-color: #0056b3;
+	}
 `;
