@@ -54,8 +54,8 @@ const StyledMovieCard = styled.div`
 	${({ $active }) =>
 		$active &&
 		css`
-			box-shadow: 0 0 16px #2e82ff;
-			transform: scale(1.08);
+			box-shadow: 0 0 16px #474d56;
+			transform: scale(1.1);
 			z-index: 2;
 		`}
 `;
