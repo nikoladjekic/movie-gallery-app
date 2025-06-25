@@ -7,6 +7,8 @@ const MovieCard = ({
 	onFocus,
 	onMouseEnter,
 	cardRef,
+	inFavourites,
+	onToggleFavourite,
 }) => {
 	return (
 		<StyledMovieCard
@@ -20,8 +22,15 @@ const MovieCard = ({
 			<CardContent $active={active}>
 				<MovieTitle $active={active}>{movie.title}</MovieTitle>
 				<MovieDate $active={active}>{movie.releaseDate}</MovieDate>
-				<StarButton type='button' tabIndex={-1}>
-					<StarIcon>{active ? '★' : '☆'}</StarIcon>
+				<StarButton
+					type='button'
+					tabIndex={-1}
+					onClick={(e) => {
+						e.stopPropagation();
+						onToggleFavourite();
+					}}
+				>
+					<StarIcon>{inFavourites ? '★' : '☆'}</StarIcon>
 				</StarButton>
 			</CardContent>
 		</StyledMovieCard>

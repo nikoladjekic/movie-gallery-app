@@ -5,6 +5,7 @@ import MovieCard from './MovieCard';
 import { useEffect, useRef, useState } from 'react';
 
 const MovieGallery = () => {
+	const [favourites, setFavourites] = useState(new Set());
 	const [focusedIndex, setFocusedIndex] = useState(0);
 	const containerRef = useRef();
 	const itemRefs = useRef([]);
@@ -22,19 +23,24 @@ const MovieGallery = () => {
 
 		switch (e.key) {
 			case 'ArrowRight':
-				if (focusedIndex + 1 < movies.length)
+				if (focusedIndex + 1 < movies.length) {
 					newIndex = focusedIndex + 1;
+				}
 				break;
 			case 'ArrowLeft':
-				if (focusedIndex - 1 >= 0) newIndex = focusedIndex - 1;
+				if (focusedIndex - 1 >= 0) {
+					newIndex = focusedIndex - 1;
+				}
 				break;
 			case 'ArrowDown':
-				if (focusedIndex + columns < movies.length)
+				if (focusedIndex + columns < movies.length) {
 					newIndex = focusedIndex + columns;
+				}
 				break;
 			case 'ArrowUp':
-				if (focusedIndex - columns >= 0)
+				if (focusedIndex - columns >= 0) {
 					newIndex = focusedIndex - columns;
+				}
 				break;
 			default:
 				return;
@@ -44,6 +50,18 @@ const MovieGallery = () => {
 			setFocusedIndex(newIndex);
 			e.preventDefault();
 		}
+	};
+
+	const toggleFavourite = (movieId) => {
+		setFavourites((prev) => {
+			const newFavourites = new Set(prev);
+			if (newFavourites.has(movieId)) {
+				newFavourites.delete(movieId);
+			} else {
+				newFavourites.add(movieId);
+			}
+			return newFavourites;
+		});
 	};
 
 	return (
@@ -61,6 +79,8 @@ const MovieGallery = () => {
 					onFocus={() => setFocusedIndex(index)}
 					onMouseEnter={() => setFocusedIndex(index)}
 					cardRef={(el) => (itemRefs.current[index] = el)}
+					inFavourites={favourites.has(movie.id)}
+					onToggleFavourite={() => toggleFavourite(movie.id)}
 				/>
 			))}
 		</GalleryContainer>
