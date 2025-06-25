@@ -23,7 +23,7 @@ const MovieGallery = () => {
 
 		switch (e.key) {
 			case 'ArrowRight':
-				if (focusedIndex + 1 < movies.length) {
+				if (focusedIndex + 1 < loadedMovies.length) {
 					newIndex = focusedIndex + 1;
 				}
 				break;
@@ -33,7 +33,7 @@ const MovieGallery = () => {
 				}
 				break;
 			case 'ArrowDown':
-				if (focusedIndex + columns < movies.length) {
+				if (focusedIndex + columns < loadedMovies.length) {
 					newIndex = focusedIndex + columns;
 				}
 				break;
@@ -44,7 +44,7 @@ const MovieGallery = () => {
 				break;
 			case 'Enter':
 			case ' ':
-				toggleFavourite(movies[newIndex].id);
+				toggleFavourite(loadedMovies[newIndex].id);
 				e.preventDefault();
 				return;
 			default:
