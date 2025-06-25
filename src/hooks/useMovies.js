@@ -10,6 +10,7 @@ const getImdbRating = (ratings) => {
 const useMovies = (movies) => {
 	const [currentPage, setCurrentPage] = useState(0);
 	const [loadedMovies, setLoadedMovies] = useState([]);
+	const [totalMovies, setTotalMovies] = useState(null);
 
 	const sortedMovies = useMemo(() => {
 		if (!movies || movies.length === 0) return [];
@@ -22,6 +23,8 @@ const useMovies = (movies) => {
 		const sorted = uniqueMovies.sort((a, b) => {
 			return getImdbRating(b.ratings) - getImdbRating(a.ratings);
 		});
+
+		setTotalMovies(sorted.length);
 
 		return sorted;
 	}, [movies]);
@@ -47,7 +50,7 @@ const useMovies = (movies) => {
 		loadMoreMovies();
 	}
 
-	return { loadedMovies, loadMoreMovies };
+	return { loadedMovies, totalMovies, loadMoreMovies };
 };
 
 export default useMovies;

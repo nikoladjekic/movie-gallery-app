@@ -5,7 +5,7 @@ import MovieCard from './MovieCard';
 import { useEffect, useRef, useState } from 'react';
 
 const MovieGallery = () => {
-	const { loadedMovies, loadMoreMovies } = useMovies(moviesData);
+	const { loadedMovies, totalMovies, loadMoreMovies } = useMovies(moviesData);
 	const [favourites, setFavourites] = useState(new Set());
 	const [focusedIndex, setFocusedIndex] = useState(0);
 	const containerRef = useRef();
@@ -91,7 +91,7 @@ const MovieGallery = () => {
 				))}
 			</GalleryContainer>
 
-			{loadedMovies.length < moviesData.length && (
+			{loadedMovies.length < totalMovies && (
 				<button onClick={loadMoreMovies}>Load More</button>
 			)}
 		</>
