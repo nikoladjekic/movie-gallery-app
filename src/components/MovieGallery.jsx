@@ -42,6 +42,11 @@ const MovieGallery = () => {
 					newIndex = focusedIndex - columns;
 				}
 				break;
+			case 'Enter':
+			case ' ':
+				toggleFavourite(movies[newIndex].id);
+				e.preventDefault();
+				return;
 			default:
 				return;
 		}
