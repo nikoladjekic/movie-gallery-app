@@ -18,7 +18,11 @@ const MovieCard = ({
 			onFocus={onFocus}
 			onMouseEnter={onMouseEnter}
 		>
-			<MoviePoster src={movie.posterUrl} alt={`${movie.title} poster`} />
+			<MoviePoster
+				src={movie.posterUrl}
+				alt={`${movie.title} poster`}
+				loading='lazy'
+			/>
 			<CardContent $active={active}>
 				<MovieTitle $active={active}>{movie.title}</MovieTitle>
 				<MovieDate $active={active}>{movie.releaseDate}</MovieDate>
