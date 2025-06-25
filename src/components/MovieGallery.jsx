@@ -5,11 +5,11 @@ import MovieCard from './MovieCard';
 import { useEffect, useRef, useState } from 'react';
 
 const MovieGallery = () => {
+	const { loadedMovies, loadMoreMovies } = useMovies(moviesData);
 	const [favourites, setFavourites] = useState(new Set());
 	const [focusedIndex, setFocusedIndex] = useState(0);
 	const containerRef = useRef();
 	const itemRefs = useRef([]);
-	const movies = useMovies(moviesData);
 	const columns = 6;
 
 	useEffect(() => {
@@ -70,25 +70,31 @@ const MovieGallery = () => {
 	};
 
 	return (
-		<GalleryContainer
-			ref={containerRef}
-			tabIndex={0}
-			onKeyDown={handleKeyDown}
-		>
-			{movies.map((movie, index) => (
-				<MovieCard
-					key={movie.id}
-					movie={movie}
-					active={focusedIndex === index}
-					tabIndex={focusedIndex === index ? 0 : -1}
-					onFocus={() => setFocusedIndex(index)}
-					onMouseEnter={() => setFocusedIndex(index)}
-					cardRef={(el) => (itemRefs.current[index] = el)}
-					inFavourites={favourites.has(movie.id)}
-					onToggleFavourite={() => toggleFavourite(movie.id)}
-				/>
-			))}
-		</GalleryContainer>
+		<>
+			<GalleryContainer
+				ref={containerRef}
+				tabIndex={0}
+				onKeyDown={handleKeyDown}
+			>
+				{loadedMovies.map((movie, index) => (
+					<MovieCard
+						key={movie.id}
+						movie={movie}
+						active={focusedIndex === index}
+						tabIndex={focusedIndex === index ? 0 : -1}
+						onFocus={() => setFocusedIndex(index)}
+						onMouseEnter={() => setFocusedIndex(index)}
+						cardRef={(el) => (itemRefs.current[index] = el)}
+						inFavourites={favourites.has(movie.id)}
+						onToggleFavourite={() => toggleFavourite(movie.id)}
+					/>
+				))}
+			</GalleryContainer>
+
+			{loadedMovies.length < moviesData.length && (
+				<button onClick={loadMoreMovies}>Load More</button>
+			)}
+		</>
 	);
 };
 

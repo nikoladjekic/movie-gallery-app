@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
 const BASE_URL = 'https://image.tmdb.org/t/p/w300';
 const PAGE_SIZE = 30;
@@ -8,6 +8,9 @@ const getImdbRating = (ratings) => {
 };
 
 const useMovies = (movies) => {
+	const [currentPage, setCurrentPage] = useState(0);
+	const [loadedMovies, setLoadedMovies] = useState([]);
+
 	const sortedMovies = useMemo(() => {
 		if (!movies || movies.length === 0) return [];
 
@@ -20,15 +23,31 @@ const useMovies = (movies) => {
 			return getImdbRating(b.ratings) - getImdbRating(a.ratings);
 		});
 
-		return sorted.slice(0, PAGE_SIZE).map((movie) => ({
-			id: movie.id,
-			title: movie.title,
-			releaseDate: movie.release_date,
-			posterUrl: `${BASE_URL}${movie.poster_path}`,
-		}));
+		return sorted;
 	}, [movies]);
 
-	return sortedMovies;
+	const loadMoreMovies = () => {
+		const startIndex = currentPage * PAGE_SIZE;
+		const endIndex = startIndex + PAGE_SIZE;
+
+		const newMovies = sortedMovies
+			.slice(startIndex, endIndex)
+			.map((movie) => ({
+				id: movie.id,
+				title: movie.title,
+				releaseDate: movie.release_date,
+				posterUrl: `${BASE_URL}${movie.poster_path}`,
+			}));
+
+		setLoadedMovies((prevMovies) => [...prevMovies, ...newMovies]);
+		setCurrentPage((prevPage) => prevPage + 1);
+	};
+
+	if (currentPage === 0) {
+		loadMoreMovies();
+	}
+
+	return { loadedMovies, loadMoreMovies };
 };
 
 export default useMovies;
